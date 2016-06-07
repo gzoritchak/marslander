@@ -9,12 +9,10 @@ import java.lang.Math.*
  */
 data class Point(val x:Double, val y: Double) {
 
-    infix operator fun plus(vector: Vector) = Point(x + vector.dx, y + vector.dy)
-
+    infix operator fun plus(vector: Vector) = Point (x + vector.dx, y + vector.dy)
     infix operator fun minus(point: Point)  = Vector(x - point.x, y - point.y)
 
     fun distanceTo(point: Point) =  (point - this).length
-
 }
 
 /**

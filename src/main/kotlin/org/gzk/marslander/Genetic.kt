@@ -8,11 +8,9 @@ val generationsCount    = 10
 val populationSize      = 20
 val genomeSize          = 1200
 
-
 var uniformRate         = .5
 var mutationRate        = .06
 var selectionRatio      = .4
-
 
 
 data class Gene(val random: Double = random()){
