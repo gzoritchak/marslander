@@ -10,8 +10,8 @@ val genomeSize          = 1200
 
 
 var uniformRate         = .5
-var mutationRate        = 0.06
-var selectionRatio      = 0.4
+var mutationRate        = .06
+var selectionRatio      = .4
 
 
 

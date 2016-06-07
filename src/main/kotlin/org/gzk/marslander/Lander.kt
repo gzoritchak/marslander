@@ -80,16 +80,8 @@ class Lander(initState: State, val cmds:List<ControlCmd>, val ground: Line) {
 
     fun State.computeNextState(cmd: ControlCmd, time: Time = 1.0.sec): State {
 
-        val altitudeLandingZone = position.y - ground.landingZone.first.y
-
-        val approximativeTimeBeforeLandingZone = if(speed.ySpeed >= 0) Int.MAX_VALUE else (- altitudeLandingZone / speed.ySpeed).toInt()
-
-        val newAngle =
-//                if(approximativeTimeBeforeLandingZone < 5) 0 else
-                    angle + (cmd.angle - angle).coerceAtLeast(-15).coerceAtMost(15)
-
+        val newAngle = angle + (cmd.angle - angle).coerceAtLeast(-15).coerceAtMost(15)
         val newPower = power + (cmd.power - power).coerceAtMost(1).coerceAtLeast(-1)
-
 
         val thrustAcceleration  = Acceleration((Vector(0.0, 1.0) * newPower.toDouble()).rotate(newAngle.deg()))
         val acceleration        = GRAVITY + thrustAcceleration
