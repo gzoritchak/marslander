@@ -1,6 +1,8 @@
 package org.gzk.marslander
 
-val GRAVITY  = acceleration(0.0, -3.711)
+val GRAVITY     = acceleration(0.0, -3.711)
+val maxX        = 6999
+val minX        = 0
 
 /**
  * power : 0, 1, 2, 3, 4
@@ -49,7 +51,7 @@ class Lander(initState: State, val cmds:List<ControlCmd>, val ground: Line) {
     }
 
     fun evaluateOutside(state: State): Boolean {
-        if (state.position.x > 6999 || state.position.x < 0) {
+        if (state.position.x > maxX || state.position.x < minX) {
             flystate = FlyState.Crashed
             return true
         }
@@ -57,11 +59,11 @@ class Lander(initState: State, val cmds:List<ControlCmd>, val ground: Line) {
     }
 
     fun evaluateHitTheGround(nextState: State): Boolean {
-        if (ground > nextState.particule.position) {
+        if (ground > nextState.position) {
             if (nextState.angle == 0
                     && nextState.speed.ySpeed > -40
                     && nextState.speed.xSpeed.abs() <= 20
-                    && ground.isHorizontalAtX(nextState.particule.x))
+                    && ground.isHorizontalAtX(nextState.position.x))
                 flystate = FlyState.Landed
             else
                 flystate = FlyState.Crashed

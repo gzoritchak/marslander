@@ -52,13 +52,7 @@ data class Particule(val position: Point, val speed: Speed){
         return Particule(newPosition, newSpeed)
     }
 
-    val x:Double
-        get() = position.x
-
-    val y:Double
-        get() = position.y
-
-    override fun toString() = " x=${x.format(2)} y=${y.format(2)} speed= $speed"
+    override fun toString() = " x=${position.x.format(2)} y=${position.y.format(2)} speed= $speed"
 }
 
 fun particule(x:Double, y:Double, s: Speed) = Particule(Point(x, y), s)
