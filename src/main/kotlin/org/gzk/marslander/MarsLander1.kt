@@ -46,6 +46,6 @@ fun marsLander1Fitness(lander: Lander)= when (lander.flystate) {
     FlyState.Landed ->  lander.trajectory.last().fuel.toDouble()
     FlyState.Flying ->  - lander.trajectory.last().position.y + mars1Ground.landingZone.first.y
     FlyState.Crashed -> with(lander.trajectory.last()) {
-        mars1Ground.landingZone.first.y - position.y + if (speed.ySpeed >= -40) 0.0 else speed.ySpeed + 40
+        mars1Ground.landingZone.first.y - position.y + speed.ySpeed + 40
     }
 }
