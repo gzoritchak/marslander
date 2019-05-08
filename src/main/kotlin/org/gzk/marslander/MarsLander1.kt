@@ -35,7 +35,7 @@ fun createMarsLander1FromGenome(genome: Array<Gene>):Lander {
 
     val ret = mutableListOf<ControlCmd>()
     (1..genomeSize).forEach {
-        val power = (previousPower + genome[it-1].asInt(1)).coerceAtMost(4)
+        val power = (previousPower + 1 - genome[it-1].asInt(2)).coerceAtMost(4).coerceAtLeast(0)
         ret.add(ControlCmd(power, 0))
         previousPower = power
     }
