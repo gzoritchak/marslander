@@ -3,35 +3,22 @@ package org.gzk.marslander
 import java.lang.Math.*
 
 /**
- * A point in a 2 dimensions cartesian system.
- * Point + Vector -> Point
- * Point - Point  -> Vector
- */
-data class Point(val x:Double, val y: Double) {
-
-    infix operator fun plus(vector: Vector) = Point (x + vector.dx, y + vector.dy)
-    infix operator fun minus(point: Point)  = Vector(x - point.x, y - point.y)
-
-    fun distanceTo(point: Point) =  (point - this).length
-}
-
-/**
  * Vector * Double -> Vector
  * Vector + Vector -> Vector
  */
-data class Vector(val dx:Double, val dy:Double) {
+data class Vector(val x:Double, val y:Double) {
 
-    infix operator fun plus(vector: Vector) = Vector (dx + vector.dx, dy + vector.dy)
-    infix operator fun times(times: Double) = Vector (dx * times, dy * times)
+    infix operator fun plus(vector: Vector) = Vector (x + vector.x, y + vector.y)
+    infix operator fun times(times: Double) = Vector (x * times, y * times)
 
     fun rotate(angle: Angle) =
             Vector(
-                    dx * cos(angle.rad) - dy * sin(angle.rad),
-                    dx * sin(angle.rad) + dy * cos(angle.rad)
+                    x * cos(angle.rad) - y * sin(angle.rad),
+                    x * sin(angle.rad) + y * cos(angle.rad)
             )
 
     val length: Double
-        get() = sqrt(dx * dx + dy * dy)
+        get() = sqrt(x * x + y * y)
 }
 
 /**
@@ -49,23 +36,23 @@ fun Int.deg(): Angle = Angle(toRadians(this.toDouble()))
 
 
 /**
- * A line is a List of point.
+ * A line is a List of points.
  * It is comparable to point:   Line > Point
  */
-data class Line (val points:List<Point>){
+data class Line (val points:List<Vector>){
     init {
         if (points.size < 2)
             error("Should have 2 points at minimum.")
     }
 
-    infix operator fun compareTo(point: Point) = (getYforX(point.x) - point.y ).toInt()
+    infix operator fun compareTo(point: Vector) = (getYforX(point.x) - point.y).toInt()
 
     fun isHorizontalAtX(x: Double) = getSegmentFor(x).let {
         it.first.y == it.second.y
     }
 
     private fun getSegmentFor (x:Double) =
-            (1..points.size-1).first {
+            (1 until points.size).first {
                 points[it -1].x <= x && x <= points[it].x
             }.let {
                 Pair(points[it - 1], points[it])

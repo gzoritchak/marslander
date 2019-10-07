@@ -37,7 +37,7 @@ fun <T> findBestChimp(create: (Array<Gene>) ->T, fitness: (T) -> Double): Genome
 
     val chimpsFewGenerationsLater = (1..generationsCount)
             .fold(population) {
-                pop, next ->
+                pop, _ ->
                 buildNextGeneration(pop, create).sortByFitness()
             }
 
@@ -83,7 +83,7 @@ fun crossover(genome1: Array<Gene>, genome2: Array<Gene>) =
         })
 
 fun mutate(genome: Array<Gene>) {
-    for ((i, singleGene) in genome.withIndex()) {
+    for ((i, _) in genome.withIndex()) {
         if (random() <= mutationRate) {
             genome[i] = Gene()
         }
