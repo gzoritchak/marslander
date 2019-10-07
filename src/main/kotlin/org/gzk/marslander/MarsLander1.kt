@@ -21,10 +21,10 @@ val mars1Ground by lazy {
 }
 
 fun codingGameGroundInputsToLine(groundAsString:String): Line {
-    val points = mutableListOf<Point>()
+    val points = mutableListOf<Vector>()
     val sc = Scanner(StringReader(groundAsString))
     while (sc.hasNextLine()) {
-        points.add(Point(sc.nextDouble(), sc.nextDouble()))
+        points.add(Vector(sc.nextDouble(), sc.nextDouble()))
     }
     return Line(points)
 }

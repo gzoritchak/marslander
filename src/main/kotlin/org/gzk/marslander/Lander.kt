@@ -11,7 +11,7 @@ val minX        = 0
 data class ControlCmd(val power: Int = 0, val angle:Int = 0)
 
 data class State(val fuel: Int, val power: Int, val angle: Int, val particule: Particule){
-    val position: Point
+    val position: Vector
         get() = particule.position
 
     val speed: Speed
@@ -22,7 +22,7 @@ enum class FlyState {
     Landed, Crashed, Flying
 }
 
-val Line.landingZone: Pair<Point, Point>
+val Line.landingZone: Pair<Vector, Vector>
     get() = points.withIndex()
             .first { it.value.y == points[it.index + 1].y }
             .let { it.value to points[it.index + 1] }

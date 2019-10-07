@@ -13,10 +13,10 @@ data class Speed(val direction: Vector) {
     infix operator fun plus(speed: Speed) = Speed(direction + speed.direction)
 
     val xSpeed:Double
-        get() = direction.dx
+        get() = direction.x
 
     val ySpeed:Double
-        get() = direction.dy
+        get() = direction.y
 
     override fun toString() = "(${xSpeed.format(2)}, ${ySpeed.format(2)})"
 }
@@ -40,7 +40,7 @@ fun acceleration(xAcc:Double, yAcc:Double) = Acceleration(Vector(xAcc, yAcc))
 /**
  * Represent something with an initial point and speed and on which an acceleration can be applied.
  */
-data class Particule(val position: Point, val speed: Speed){
+data class Particule(val position: Vector, val speed: Speed){
 
     fun accelerate(acceleration: Acceleration, time: Time): Particule {
         val newSpeed = speed + acceleration * time
@@ -55,6 +55,6 @@ data class Particule(val position: Point, val speed: Speed){
     override fun toString() = " x=${position.x.format(2)} y=${position.y.format(2)} speed= $speed"
 }
 
-fun particule(x:Double, y:Double, s: Speed) = Particule(Point(x, y), s)
+fun particule(x:Double, y:Double, s: Speed) = Particule(Vector(x, y), s)
 
 fun Double.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
